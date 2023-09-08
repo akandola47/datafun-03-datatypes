@@ -1,15 +1,4 @@
-"""
-Optional bonus. See course site for details.
 
->>> len(longwordset1)
-415
-
->>> len(longwordset2)
-197
-
->>> len(longwords)
-13
-"""
 
 import doctest
 
@@ -48,12 +37,12 @@ def compare_two_plays():
     # hint: use sorted() to sort the list
     # hint: use set() to remove duplicates
     # name them wordset1 and wordset2
-    wordset1 = set()  # TODO fix this line
-    wordset2 = set()  # TODO fix this line
+    wordset1 = set(sorted(wordlist1))  
+    wordset2 = set(sorted(wordlist2)) 
 
 
     # initialize a variable maxlen = 10
-    maxlen = 1  # TODO fix this line
+    maxlen = 10  
 
     # use a list comprension to get a list of words longer than 10
     # for word in wordset1
@@ -65,21 +54,22 @@ def compare_two_plays():
     # hint: use set()
     # name them longwordset1 and longwordset2
 
-    longwordset1 = set()  # TODO: fix this line
-    longwordset2 = set()  # TODO: fix this line
+    longwordset1= [item for item in wordset1 if len(item)> maxlen]
+    longwordset2= [item for item in wordset2 if len(item)> maxlen]
 
-    # find the intersection of the two sets
-    # that is, the words in both longwordset1 1 & longwordset2
-    # name this variable longwords
+
+    longwordset1 = set(longwordset1)  
+    longwordset2 = set(longwordset2)  
+
     longwords = longwordset1 & longwordset2
 
     # print the length of the sets and the list
     print(len(longwordset1))
     print(len(longwordset2))
     print(len(longwords))
-    print()
     print(f"{sorted(longwords) = }")
-    print()
+    
+    
 
     # check your work
     print("TESTING...if nothing prints before the testing is done, you passed!")
@@ -102,4 +92,3 @@ if __name__ == "__main__":
 
     logger.info("Complete the code to compare two plays.")
     show_log()
-

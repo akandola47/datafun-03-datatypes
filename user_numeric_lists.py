@@ -26,31 +26,6 @@ logger, logname = setup_logger(__file__)
 # define a variable with some univariant data
 # (one varabile, many readings)
 score_list = [
-    105,
-    129,
-    87,
-    86,
-    111,
-    111,
-    89,
-    81,
-    108,
-    92,
-    110,
-    100,
-    75,
-    105,
-    103,
-    109,
-    76,
-    119,
-    99,
-    91,
-    103,
-    129,
-    106,
-    101,
-    84,
     111,
     74,
     87,
@@ -81,57 +56,45 @@ score_list = [
 # univariant time series data (one varabile over time)
 # typically, x (or time) is independent and
 # y is dependent on x (e.g. temperature vs hour of day)
-xtimes_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-yvalues_list = [2, 5, 8, 20, 21, 23, 24, 27, 30, 31, 31, 32]
+list1 = [1, 2, 3, 4, 5,6,7,8,9,10,11,12,13,14,15,16,17,18,29,20]
+listx = [2,4,6,8,10,12,14,16,18,20]
+listy=[3,6,9,12,15,18,21,24,27,30]
+
 
 # Define functions ........................................
 
 
 def illustrate_list_statistics():
     """This function illustrates descriptive statistics for a numric list."""
+    mean_value1=statistics.mean(list1)
+    mean_value1=statistics.mean(listx)
+    mean_value1=statistics.mean(listy)
+
+    median_value=statistics.median(list1)
+    median_value=statistics.median(listx)
+    median_value=statistics.median(listy)
+
+    mode_value=statistics.mode(list1)
+    mode_value=statistics.mode(listx)
+    mode_value=statistics.mode(listy)
+
+    st_dev_value1= statistics.stdev(list1)
+    st_dev_valuex= statistics.stdev(listx)
+    st_dev_valuey= statistics.stdev(listy)
 
     logger.info(f"score_list: {score_list}")
-
-    # Descriptive: Averages and measures of central tendency
-    # Use statisttics module to get mean, median, mode
-    # for a values list
-
-    mean = statistics.mean(score_list)
-    median = statistics.median(score_list)
-    mode = statistics.mode(score_list)
-
-    logger.info(f"mean: {mean}")
-    logger.info(f"median: {median}")
-    logger.info(f"mode: {mode}")
-
-    stdev = statistics.stdev(score_list)
-    variance = statistics.variance(score_list)
-
-    logger.info(f"stdev: {stdev}")
-    logger.info(f"variance: {variance}")
 
 
 def illustrate_list_correlation_and_prediction():
     """This function illustrates correlation and prediction for a numric list."""
 
-    logger.info(f"xtimes_list: {xtimes_list}")
-    logger.info(f"yvalues_list: {yvalues_list}")
-
-    # Descriptive: Measures of correlation
-    # Use two numerical lists of the same size
-    # Use statisttics module to get correlation between list1 and list2
-
-    correlationxy = statistics.correlation(xtimes_list, yvalues_list)
+    correlation=statistics.correlation(listx,listy)
+    slope, intercept= statistics.linear_regression(listx,listy)
     logger.info(f"correlation between x and y: {correlationxy}")
 
-    # Predictive: Machine Learning - Linear Regression
-    # If the corrlation is close to 1.0, then the data is linearly related
-    # If so, use statistics module to get linear regression for list1 and list2
-    # This is a form of supervised machine learning - it uses all known data
-    # Use the slope and intercept and an unknown (future) x to predict a y value
-    # Python functions can return multiple values
-
-    slope, intercept = statistics.linear_regression(xtimes_list, yvalues_list)
+    
+    logger.info(f"xtimes_list: {xtimes_list}")
+    logger.info(f"yvalues_list: {yvalues_list}")
     logger.info(f"The equation of the best fit line is: y = {slope}x + {intercept}")
 
     # Once we have learned the slope and intercept
@@ -140,17 +103,6 @@ def illustrate_list_correlation_and_prediction():
 
     # Predict the y value for a given x value outside the range of the data
 
-    x_max = max(xtimes_list)
-    newx = x_max * 1.5  # predict for a future x value
-
-    # Use the slope and intercept to predict a y value for the future x value
-    # y = mx + b
-
-    newy = slope * newx + intercept
-
-    logger.info("We predict that when x = {newx}, y will be about {newy}")
-
-
 def illustrate_list_built_in_functions():
     # BUILT-IN FUNCTIONS ......................................
     # Many built-in functions work on lists
@@ -158,36 +110,38 @@ def illustrate_list_built_in_functions():
 
     # Using the score list provided above, do the following:
     # Calcuate the max and min scores
-    max_value = max(score_list)
-    min_value = min(score_list)
+    max_value = max(listx)
+    min_value = min(listx)
+    
+    max_value = max(listy)
+    min_value = min(listy)
 
-    logger.info(f"Given score list: {score_list}")
-    logger.info(f"The max() is {max_value}")
-    logger.info(f"The min() is {min_value}")
+    max_value = max(list1)
+    min_value = min(list1)
 
-    # Calculate the length of the list
-    len_list = len(score_list)
-    logger.info(f"The len() is {len_list}")
+    length1=len(list1)
+    lengthx=len(listx)
+    lengthy=len(listy)
 
-    # Calculate the sum of the list
-    sum_list = sum(score_list)
-    logger.info(f"The sum() is {sum_list}")
+    sum1=sum(list1)
+    sumx=sum(listx)
+    sumy=sum(listy) 
 
-    # Calculate the average of the list
-    avg_list = sum_list / len_list
-    logger.info(f"The average is {avg_list}")
+    average1=sum(list1)/ len(list1)
+    averagex=sum(listx)/ len(listx)
+    averagey=sum(listy)/ len(listy)
 
-    logger.info(f"Given score list: {score_list}")
-    # Return a new list soreted in ascending order
-    asc_scores = sorted(score_list)
-    logger.info(f"Using the built-it function sorted(lst) gives: {asc_scores}")
+    set1=set(list1)
+    setx=set(listx)
+    sety=set(listy)
 
-    # Return a new list soreted in descending order
-    desc_scores = sorted(score_list, reverse=True)
-    logger.info(
-        f"Using the built-in function sorted(lst,reverse=True) gives: {desc_scores}"
-    )
+    list1=sorted(list1)
+    listx=sorted(listx)
+    listy=sorted(listy)
 
+    list1=sorted(list1,reverse=True)
+    listx=sorted(listx,reverse=True)
+    listy=sorted(listy,reverse=True)
 
 def illustrate_list_methods():
     """This function illustrates methods that can be called on a list"""
@@ -218,29 +172,30 @@ def illustrate_list_methods():
      """
 
     # append an item to the end of the list
-    lst = [1, 2, 3]
-    lst.append(4)
+    lst = [1, 2, 3,4]
+    lst.append(5)
 
     # extend the list with another list
-    lst.extend([4, 5, 6])
+    lst.extend([7, 8, 9])
 
     # insert an item at a given position (0 = first item)
     i = 0
-    newvalue = 42
+    newvalue = 24
     lst.insert(i, newvalue)
 
     # remove an item
-    item_to_remove = 42
+    item_to_remove = 5
     lst.remove(item_to_remove)
+    print(lst)
 
     # Count how many times 111 appears in the list
-    ct_of_111 = score_list.count(111)
+    ct_of_24 = lst.count(24)
 
     # Sort the list in ascending order using the sort() method
-    asc_scores2 = score_list.sort()
+    asc_scores2 = lst.sort()
 
     # Sort the list in descending order using the sort() method
-    desc_scores2 = score_list.sort(reverse=True)
+    desc_scores2 = lst.sort(reverse=True)
 
     # Copy the list to a new list
     new_scores = score_list.copy()
@@ -249,24 +204,16 @@ def illustrate_list_methods():
     # Remove the first item from the new list
     # The first item in a list is at index 0
     # Think of it as an offset from the beginning of the list
-    first = new_scores.pop(0)
-    logger.info(
-        f"Popped the first (index=0): {first} and now, new_scores is: {new_scores}"
-    )
-
+    first = lst.pop(0)
+    
+    print(lst)
     # Remove the last item from the new list
     # The last item in a list is at index -1
-    last = new_scores.pop(-1)
-    logger.info(
-        f"Popped the last (index=-1): {last} and now, new_scores is: {new_scores}"
-    )
+    last = lst.pop(1)
 
     # Remove the item at index 3 from the new list
-    fourth = new_scores.pop(3)
-    logger.info(
-        f"Popped the fourth (index=3): {fourth} and now, new_scores is: {new_scores}"
-    )
-
+    fourth = lst.pop(3)
+    print(lst)
 
 def illustrate_list_transformations():
     """This function illustrates transformations that can be applied to a list"""
@@ -282,7 +229,7 @@ def illustrate_list_transformations():
     # You could pass in a named function, but honestly this is easier
     # Say "KEEP x such that x > 100 is True" given score_list
     # Cast the result using square brackets to get back a list
-    scores_over_100 = [filter(lambda x: x > 100, score_list)]
+    scores_over_100 = [filter(lambda x: x > 100, lst)]
     logger.info(f"Scores over 100: {scores_over_100}")
 
     # Use the built-in function map() anywhere you need to transform a list
@@ -290,13 +237,13 @@ def illustrate_list_transformations():
     # Map each element to its square
     # Say "map x to x squared" given score_list
     # Cast the result using square brackets to get a list
-    doubled_scores = [map(lambda x: x * 2, score_list)]
+    doubled_scores = [map(lambda x: x * 2, lst)]
     logger.info(f"Doubled scores: {doubled_scores}")
 
     # Map each element to its square root
     # Say "map x to the square root of x" given score_list
     # remember to cast the result to a list (using square brackets)
-    sqrt_scores = map(lambda x: math.sqrt(x), score_list)
+    sqrt_scores = map(lambda x: math.sqrt(x), lst)
     logger.info(f"Square root of scores: {sqrt_scores}")
 
     # Map each element (radius) to its area
@@ -324,24 +271,24 @@ def illustrate_list_comprehensions():
     # Say "KEEP x (for each x in score_list) IF  x > 100"
     # Cast the result to a list using square brackets
 
-    scores_over_100 = [x for x in score_list if x > 100]
+    scores_over_100 = [x for x in lst if x > 100]
     logger.info("Scores over 100 (using list comprehensions!): {scores_over_100}")
 
     # Try again "keep x (for each x in score_list) IF  x < 42"
-    scores_under_42 = [x for x in score_list if x < 42]
+    scores_under_42 = [x for x in lst if x < 42]
     logger.info("Scores under 42 (using list comprehensions!): {scores_under_42}")
 
     # Map each element to its square
     # Say "give me x squared (for each x in score_list)"
     # Cast the result to a list using square brackets
 
-    doubled_scores = [x * 2 for x in score_list]
+    doubled_scores = [x * 2 for x in lst]
     logger.info("Doubled scores (using list comprehensions!): {doubled_scores}")
 
     # Map each element to its square root
     # Say "give me the square root of x (for each x in score_list)"
     # Cast the result to a list using square brackets
-    sqrt_scores = [math.sqrt(x) for x in score_list]
+    sqrt_scores = [math.sqrt(x) for x in lst]
 
     radius_list = [1, 2, 3, 4, 5]
     logger.info(f"Given radius_list: {radius_list}")
@@ -370,42 +317,9 @@ def show_log():
     with open(logname, "r") as file_wrapper:
         print(file_wrapper.read())
 
-
-# -------------------------------------------------------------
-# Call some functions and execute code!
-
-# This is very standard Python - it means
-# "If this module is the one being executed, i.e., the main module"
-# (as opposed to being imported by another module)
 if __name__ == "__main__":
-    logger.info("Calling functions from main block")
-
-    # call your functions here (see instructions)
-    illustrate_list_statistics()
-    illustrate_list_correlation_and_prediction()
-    illustrate_list_built_in_functions()
-    illustrate_list_methods()
-    illustrate_list_transformations()
-    illustrate_list_comprehensions()
-
-    logger.info("Add more logging statements to the code to see what happens.")
-    logger.info("Explore enough to understand.")
-    logger.info("Apply these skills to your own topic domain.")
+    calculate_correlation_and_prediction
+    calculate_statistics
 
     show_log()
 
-
-# Why do we wrap parts of our code into functions?
-# Because when you write good functions, you can reuse them in other scripts.
-# Just like we import our logger and reuse the setup_logger() function.
-# You can easily build a set of resuable functions to support your topic domain.
-
-# For example, if your topic domain:
-# Is sports, create functions to provide a list of teams.
-# Is pets, create functions to calculate adoption prices.
-# Is music, create functions to return a lists of favorite artists.
-
-# When you write reusable functions for your domain, you can
-# import the module with your utility functions into other scripts
-# and use them for free.
-# This is excellent practice.

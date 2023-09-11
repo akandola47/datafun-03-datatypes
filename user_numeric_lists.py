@@ -143,6 +143,11 @@ def illustrate_list_built_in_functions():
     listx=sorted(listx,reverse=True)
     listy=sorted(listy,reverse=True)
 
+    variance1=variance(list1)
+    variancex=variance(listx)
+    variancey=variance(listy)
+
+    
 def illustrate_list_methods():
     """This function illustrates methods that can be called on a list"""
 
